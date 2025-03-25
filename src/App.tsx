@@ -1,6 +1,9 @@
+import Navbar from "./components/Navbar";
+
 const App = () => {
   return (
-    <div className="w-screen h-screen bg-red-500 flex justify-center items-center">
+    <div className="w-screen h-screen text-black">
+      <Navbar />
       App
     </div>
   );
