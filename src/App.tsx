@@ -1,11 +1,15 @@
-import Navbar from "./components/Navbar";
+import Layout from "./layout/Layout";
+import { QueryClientProvider, QueryClient } from "react-query";
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <div className="w-screen h-screen text-black">
-      <Navbar />
-      App
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div>
+        <Layout />
+      </div>
+    </QueryClientProvider>
   );
 };
 

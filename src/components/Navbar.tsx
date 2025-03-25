@@ -8,7 +8,7 @@ const Navbar = () => {
           placeholder="Search..."
           className="w-[500px] outline-none border-2 border-black p-1.5 rounded-lg shadow-cyan-200"
         />
-        <h4>SignUp/Login</h4>
+        <h4>Login</h4>
       </div>
       <h4>Cart</h4>
     </div>
