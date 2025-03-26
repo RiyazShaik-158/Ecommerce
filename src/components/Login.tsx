@@ -1,11 +1,16 @@
 import { useState } from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { loginUser } from "../api/login";
 
 const Login = () => {
-  const [formInput, setFormInput] = useState({
+  const [formInput, setFormInput] = useState<
+    Record<string, string | undefined>
+  >({
     email: "",
     password: "",
   });
+  const [submitClicked, setSubmitClicked] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -14,8 +19,29 @@ const Login = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("obtained user input", formInput);
+    if (
+      formInput.email &&
+      formInput.password &&
+      formInput.password.length >= 4
+    ) {
+      setSubmitClicked((prev) => !prev);
+    }
   };
+
+  const { isLoading, data } = useQuery(
+    ["auth", submitClicked],
+    () => loginUser(formInput),
+    {
+      enabled:
+        !!formInput.email &&
+        !!formInput.password &&
+        formInput.password.length >= 4 &&
+        submitClicked,
+    }
+  );
+
+  console.log("data from query", data);
+
   return (
     <div className="w-full h-[90%] flex  justify-center items-center bg-[#fff]">
       <div className="flex flex-col w-[40%] h-[70%] justify-between items-center p-4 border-green-400 border-2 rounded-xl">
@@ -50,9 +76,10 @@ const Login = () => {
           </>
           <button
             type="submit"
+            disabled={isLoading}
             className="w-full p-1 rounded-xl border-1 border-green-400 font-semibold text-green-400"
           >
-            Submit
+            {isLoading ? "Loading..." : "Submit"}
           </button>
         </form>
         <div>
