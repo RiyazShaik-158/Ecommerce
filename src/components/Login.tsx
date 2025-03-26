@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../api/login";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const [formInput, setFormInput] = useState<
     Record<string, string | undefined>
   >({
@@ -11,6 +13,18 @@ const Login = () => {
     password: "",
   });
   const [submitClicked, setSubmitClicked] = useState(false);
+
+  const { isLoading, data } = useQuery(
+    ["auth", submitClicked],
+    () => loginUser(formInput),
+    {
+      enabled:
+        !!formInput.email &&
+        !!formInput.password &&
+        formInput.password.length >= 4 &&
+        submitClicked,
+    }
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -28,19 +42,11 @@ const Login = () => {
     }
   };
 
-  const { isLoading, data } = useQuery(
-    ["auth", submitClicked],
-    () => loginUser(formInput),
-    {
-      enabled:
-        !!formInput.email &&
-        !!formInput.password &&
-        formInput.password.length >= 4 &&
-        submitClicked,
+  useEffect(() => {
+    if (data) {
+      navigate("/");
     }
-  );
-
-  console.log("data from query", data);
+  }, [data, navigate]);
 
   return (
     <div className="w-full h-[90%] flex  justify-center items-center bg-[#fff]">
