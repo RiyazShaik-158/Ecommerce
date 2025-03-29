@@ -65,7 +65,7 @@ const Login = () => {
               type="text"
               value={formInput.email}
               onChange={handleChange}
-              className="text-center p-1 px-2 rounded"
+              className="text-center p-1 px-2 rounded bg-green-200 border-none outline-none"
             />
           </>
           <>
@@ -77,7 +77,7 @@ const Login = () => {
               type="password"
               value={formInput.password}
               onChange={handleChange}
-              className="text-center p-1 px-2 rounded"
+              className="text-center p-1 px-2 rounded bg-green-200 border-none outline-none"
             />
           </>
           <button

@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../components/Navbar";
 
 const Layout = () => {
   // if(!token) {
@@ -7,7 +6,6 @@ const Layout = () => {
   // }
   return (
     <div className="w-screen h-screen text-black font-sans">
-      <Navbar />
       <Outlet />
     </div>
   );
