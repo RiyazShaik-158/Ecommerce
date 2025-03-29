@@ -1,15 +1,20 @@
 export interface LoginDataType {
-  email: string;
-  password: string;
-}
-
-export interface AuthContextType {
-  user: {
+  data: {
     name: string;
     email: string;
-    userName: string;
     role: string;
-  } | null;
+  };
+  token: string;
+  message?: string;
+}
+
+export interface ProviderProps {
+  // user: {
+  //   name: string;
+  //   email: string;
+  //   role: string;
+  // } | null;
+  user: string | null;
   token: string;
   login: (data: LoginDataType) => void;
   logout: () => void;
