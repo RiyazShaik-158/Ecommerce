@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 import { LoginDataType, ProviderProps } from "./types";
 
 const AuthContext = createContext<ProviderProps>({
@@ -12,15 +12,19 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<string | null>(null);
   const [token, setToken] = useState("");
 
-  const login = (data: LoginDataType) => {
+  const login = useCallback((data: LoginDataType) => {
     setUser(data.data.name);
     setToken(data.token);
-  };
+    localStorage.setItem("user", JSON.stringify(data.data.name));
+    localStorage.setItem("token", data.token);
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setUser(null);
     setToken("");
-  };
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+  }, []);
 
   return (
     <AuthContext.Provider value={{ token, user, login, logout }}>
