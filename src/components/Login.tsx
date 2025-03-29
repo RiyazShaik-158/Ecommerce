@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { useState } from "react";
+import { useMutation } from "react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../api/login";
+import { useAuth } from "../context/Auth";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [formInput, setFormInput] = useState<
     Record<string, string | undefined>
@@ -12,19 +14,15 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const [submitClicked, setSubmitClicked] = useState(false);
 
-  const { isLoading, data } = useQuery(
-    ["auth", submitClicked],
-    () => loginUser(formInput),
-    {
-      enabled:
-        !!formInput.email &&
-        !!formInput.password &&
-        formInput.password.length >= 4 &&
-        submitClicked,
-    }
-  );
+  const loginMutation = useMutation(loginUser, {
+    onSuccess: (data) => {
+      login(data);
+      if (data.data.name && data.data.email) {
+        navigate("/");
+      }
+    },
+  });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -38,15 +36,9 @@ const Login = () => {
       formInput.password &&
       formInput.password.length >= 4
     ) {
-      setSubmitClicked((prev) => !prev);
+      loginMutation.mutate(formInput);
     }
   };
-
-  useEffect(() => {
-    if (data) {
-      navigate("/");
-    }
-  }, [data, navigate]);
 
   return (
     <div className="w-full h-[90%] flex  justify-center items-center bg-[#fff]">
@@ -82,10 +74,10 @@ const Login = () => {
           </>
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={loginMutation.isLoading}
             className="w-full p-1 rounded-xl border-1 border-green-400 font-semibold text-green-400"
           >
-            {isLoading ? "Loading..." : "Submit"}
+            {loginMutation.isLoading ? "Loading..." : "Submit"}
           </button>
         </form>
         <div>
