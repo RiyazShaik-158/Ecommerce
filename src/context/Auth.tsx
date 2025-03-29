@@ -9,8 +9,10 @@ const AuthContext = createContext<ProviderProps>({
 });
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<string | null>(null);
-  const [token, setToken] = useState("");
+  const [user, setUser] = useState<string | null>(
+    () => localStorage.getItem("user") || null
+  );
+  const [token, setToken] = useState(() => localStorage.getItem("token") || "");
 
   const login = useCallback((data: LoginDataType) => {
     setUser(data.data.name);
