@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/Auth";
 
 const Navbar = () => {
+  const { user } = useAuth();
+  console.log("user in navbar is", user);
   return (
     <div className="w-full h-16 bg-[#61bf1a] flex justify-between items-center px-[20px]">
       <Link to={"/"}>
@@ -12,9 +15,13 @@ const Navbar = () => {
           placeholder="Search..."
           className="w-[500px] outline-none border-2 border-black p-1.5 rounded-lg shadow-cyan-200"
         />
-        <Link to={"/login"}>
-          <h4 className="text-black">Login</h4>
-        </Link>
+        {user ? (
+          <h4>{`Hello ${user}`}</h4>
+        ) : (
+          <Link to={"/login"}>
+            <h4 className="text-black">Login</h4>
+          </Link>
+        )}
       </div>
       <h4>Cart</h4>
     </div>
