@@ -9,7 +9,7 @@ const Layout = () => {
   }
 
   return (
-    <div className="w-screen h-screen text-black font-sans">
+    <div>
       <Outlet />
     </div>
   );
