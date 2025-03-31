@@ -16,25 +16,19 @@ const Navbar = () => {
           className="w-[500px] outline-none border-2 border-black p-1.5 rounded-lg shadow-cyan-200"
         />
         {user ? (
-          <>
-            <h4>{`Hello ${user}`}</h4>
-            <Popover className="group">
-              <PopoverButton className="flex items-center gap-2">
-                Solutions
-              </PopoverButton>
-              <PopoverPanel anchor="bottom" className="flex flex-col">
-                {/* <a href="/insights">Insights</a>
-        <a href="/automations">Automations</a>
-        <a href="/reports">Reports</a> */}
-                <button
-                  onClick={logout}
-                  className="p-1 px-2 rounded text-red-500 border-2 border-red-500 bg-white"
-                >
-                  Logout
-                </button>
-              </PopoverPanel>
-            </Popover>
-          </>
+          <Popover className="group bg-none">
+            <PopoverButton className="flex items-center gap-2 bg-white">
+              {`Hello ${user}`}
+            </PopoverButton>
+            <PopoverPanel anchor="bottom" className="flex flex-col">
+              <button
+                onClick={logout}
+                className="p-1 px-2 rounded text-red-500 border-2 border-red-500 bg-white w-[100px]"
+              >
+                Logout
+              </button>
+            </PopoverPanel>
+          </Popover>
         ) : (
           <Link to={"/login"}>
             <h4 className="text-black">Login</h4>
