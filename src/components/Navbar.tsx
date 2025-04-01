@@ -16,9 +16,9 @@ const Navbar = () => {
           className="w-[500px] outline-none border-2 border-black p-1.5 rounded-lg shadow-cyan-200"
         />
         {user ? (
-          <Popover className="group bg-none">
-            <PopoverButton className="flex items-center gap-2 bg-white">
-              {`Hello ${user}`}
+          <Popover as="div" className="group !m-0 !p-0 !border-0 !bg-white">
+            <PopoverButton className="flex items-center gap-2 font-semibold !bg-white hover:bg-white">
+              <h4 className="bg-white text-blue-500 p-2 px-3">{`Hello ${user}`}</h4>
             </PopoverButton>
             <PopoverPanel anchor="bottom" className="flex flex-col">
               <button
