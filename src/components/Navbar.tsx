@@ -16,11 +16,17 @@ const Navbar = () => {
           className="w-[500px] outline-none border-2 border-black p-1.5 rounded-lg shadow-cyan-200"
         />
         {user ? (
-          <Popover as="div" className="group !m-0 !p-0 !border-0 !bg-white">
-            <PopoverButton className="flex items-center gap-2 font-semibold !bg-white hover:bg-white">
-              <h4 className="bg-white text-blue-500 p-2 px-3">{`Hello ${user}`}</h4>
+          <Popover
+            as="div"
+            className="group !m-0 !p-0 !border-0 !bg-white !rounded-xl"
+          >
+            <PopoverButton
+              as="button"
+              className="flex items-center gap-2 font-semibold !bg-white !rounded !text-blue-500 !p-2 !px-3"
+            >
+              {`Hello ${String(user)}`}
             </PopoverButton>
-            <PopoverPanel anchor="bottom" className="flex flex-col">
+            <PopoverPanel as={"div"} anchor="bottom" className="flex flex-col">
               <button
                 onClick={logout}
                 className="p-1 px-2 rounded text-red-500 border-2 border-red-500 bg-white w-[100px]"
