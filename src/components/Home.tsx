@@ -1,13 +1,6 @@
 import { useQuery } from "react-query";
 import { getProducts } from "../api/products";
-
-const dummyData = [
-  { name: "product1" },
-  { name: "product2" },
-  { name: "product3" },
-  { name: "product4" },
-  { name: "product5" },
-];
+import { GetProductsType } from "../constants/types";
 
 const Home = () => {
   const { isLoading, data } = useQuery("products", getProducts);
@@ -22,7 +15,7 @@ const Home = () => {
         <h4>Wait man, Loading...</h4>
       ) : (
         <div className="w-full h-full bg-white flex justify-center items-center flex-wrap gap-[20px]">
-          {dummyData.map((item) => (
+          {data.map((item: GetProductsType) => (
             <h4
               key={item.name}
               className="w-[200px] h-[300px] border-2 border-red-400 rounded"
