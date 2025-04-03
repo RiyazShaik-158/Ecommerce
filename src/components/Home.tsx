@@ -5,10 +5,6 @@ import { GetProductsType } from "../constants/types";
 const Home = () => {
   const { isLoading, data } = useQuery("products", getProducts);
 
-  if (data) {
-    console.log("products data", data);
-  }
-
   return (
     <div className="bg-red-500 h-[96%]">
       {isLoading ? (
