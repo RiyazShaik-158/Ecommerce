@@ -6,7 +6,7 @@ const Home = () => {
   const { isLoading, data } = useQuery("products", getProducts);
 
   return (
-    <div className="bg-red-500 h-[96%]">
+    <div className=" h-[660px]">
       {isLoading ? (
         <h4>Wait man, Loading...</h4>
       ) : (

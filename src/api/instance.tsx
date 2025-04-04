@@ -27,9 +27,9 @@ instance.interceptors.response.use(
   (error) => {
     if ([401].includes(error?.response?.status)) {
       console.log("Invalid token or token expired");
-      localStorage.clear();
-      window.location.reload();
-      window.location.href = "/";
+      // localStorage.clear();
+      // window.location.reload();
+      // window.location.href = "/";
     }
 
     return Promise.reject(error);
