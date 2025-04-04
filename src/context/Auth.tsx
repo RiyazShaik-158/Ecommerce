@@ -6,6 +6,7 @@ const AuthContext = createContext<ProviderProps>({
   token: "",
   login: () => {},
   logout: () => {},
+  role: "",
 });
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
@@ -13,10 +14,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     () => localStorage.getItem("user") || null
   );
   const [token, setToken] = useState(() => localStorage.getItem("token") || "");
+  const [role, setRole] = useState("");
 
   const login = useCallback((data: LoginDataType) => {
     setUser(data.data.name);
     setToken(data.token);
+    setRole(data.data.role);
+    localStorage.setItem("role", data.data.role);
     localStorage.setItem("user", data.data.name);
     localStorage.setItem("token", data.token);
   }, []);
@@ -25,11 +29,12 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setUser(null);
     setToken("");
     localStorage.removeItem("user");
+    localStorage.removeItem("role");
     localStorage.removeItem("token");
   }, []);
 
   return (
-    <AuthContext.Provider value={{ token, user, login, logout }}>
+    <AuthContext.Provider value={{ token, user, login, logout, role }}>
       {children}
     </AuthContext.Provider>
   );

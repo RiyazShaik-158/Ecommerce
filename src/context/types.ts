@@ -9,13 +9,9 @@ export interface LoginDataType {
 }
 
 export interface ProviderProps {
-  // user: {
-  //   name: string;
-  //   email: string;
-  //   role: string;
-  // } | null;
   user: string | null;
   token: string;
   login: (data: LoginDataType) => void;
   logout: () => void;
+  role: string;
 }
