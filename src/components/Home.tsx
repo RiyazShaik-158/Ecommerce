@@ -10,7 +10,7 @@ const Home = () => {
       {isLoading ? (
         <h4>Wait man, Loading...</h4>
       ) : (
-        <div className="lg:w-[90vw] md:w-[85vw] h-full flex justify-start items-start flex-wrap gap-4 p-4">
+        <div className="lg:w-[90vw] md:w-[75vw] h-full flex justify-start items-start flex-wrap gap-6 lg:p-4 md:px-14 md:py-6">
           {data.map((item: GetProductsType) => (
             <h4
               key={item.name}
