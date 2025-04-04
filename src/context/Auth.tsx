@@ -17,7 +17,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = useCallback((data: LoginDataType) => {
     setUser(data.data.name);
     setToken(data.token);
-    localStorage.setItem("user", JSON.stringify(data.data.name));
+    localStorage.setItem("user", data.data.name);
     localStorage.setItem("token", data.token);
   }, []);
 
