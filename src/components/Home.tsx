@@ -1,15 +1,15 @@
 import { useQuery } from "react-query";
 import { getProducts } from "../api/products";
 import { GetProductsType } from "../constants/types";
-import { useAuth } from "../context/Auth";
+// import { useAuth } from "../context/Auth";
 
 const Home = () => {
   const { isLoading, data } = useQuery("products", getProducts);
-  const { role } = useAuth();
+  // const { role } = useAuth();
 
   return (
     <div className="min-h-[660px] w-full bg-white flex justify-center">
-      {role === "admin" ? <h4>Hello world</h4> : null}
+      {/* {role === "admin" ? <h4>Hello world</h4> : null} */}
       {isLoading ? (
         <h4>Wait man, Loading...</h4>
       ) : (
