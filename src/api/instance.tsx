@@ -5,11 +5,10 @@ const instance = axios.create({
   baseURL: `${backend_url}/`,
 });
 
-const token = localStorage.getItem("token");
-
 instance.interceptors.request.use(
   async (config) => {
     config.headers.Accept = "application/json";
+    const token = localStorage.getItem("token");
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -27,6 +26,10 @@ instance.interceptors.response.use(
   (error) => {
     if ([401].includes(error?.response?.status)) {
       console.log("Invalid token or token expired");
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("role");
+      window.location.href = "/login";
       // localStorage.clear();
       // window.location.reload();
       // window.location.href = "/";

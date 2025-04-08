@@ -4,7 +4,9 @@ import { useAuth } from "../context/Auth";
 const Layout = () => {
   const { token } = useAuth();
 
-  if (!token) {
+  const localToken = localStorage.getItem("token");
+
+  if (!token && !localToken) {
     return <Navigate to={"/login"} replace />;
   }
 

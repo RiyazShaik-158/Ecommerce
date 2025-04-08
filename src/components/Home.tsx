@@ -1,11 +1,19 @@
 import { useQuery } from "react-query";
 import { getProducts } from "../api/products";
 import { GetProductsType } from "../constants/types";
+import { useState } from "react";
 // import { useAuth } from "../context/Auth";
 
 const Home = () => {
-  const { isLoading, data } = useQuery("products", getProducts);
+  const { isLoading, data, error, status } = useQuery("products", getProducts);
   // const { role } = useAuth();
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [err] = useState<any>(error);
+
+  if (error) {
+    console.log("error is ", err, err?.message, status);
+  }
 
   return (
     <div className="min-h-[660px] w-full bg-white flex justify-center">
